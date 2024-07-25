@@ -1,16 +1,16 @@
-from tkinter import *
+import tkinter as ttk
+from tkinter.ttk import *
 from Register import *
 from Login import *
 from Chat import *
-import tkinter.ttk as ttk
 
-window = Tk()
+
+window = ttk.Tk()
+
+
 window.title("Messenger")
-window.geometry("270x130")
+window.geometry("270x170")
 window.resizable(False, False)
-
-ttk.Style().theme_use("clam")
-
 
 login = Login(window)
 register = Register(window)
@@ -19,4 +19,9 @@ login.add_switch(lambda: register.frame.pack())
 register.add_switch(lambda: login.frame.pack())
 
 login.frame.pack()
+style = Style()
+style.theme_use('clam')
+style.configure('TLabel', background='#F0F0F0')
+
+
 window.mainloop()
