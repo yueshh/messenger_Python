@@ -5,7 +5,6 @@ import json
 from actions_password import hash_password
 
 
-
 class Login:
 
     def __init__(self, window):

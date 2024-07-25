@@ -2,11 +2,8 @@ import tkinter as ttk
 from tkinter.ttk import *
 from Register import *
 from Login import *
-from Chat import *
-
 
 window = ttk.Tk()
-
 
 window.title("Messenger")
 window.geometry("270x170")
@@ -22,6 +19,5 @@ login.frame.pack()
 style = Style()
 style.theme_use('clam')
 style.configure('TLabel', background='#F0F0F0')
-
 
 window.mainloop()
