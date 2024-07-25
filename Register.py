@@ -5,7 +5,6 @@ import requests
 import json
 
 
-
 class Register:
 
     def __init__(self, window):
