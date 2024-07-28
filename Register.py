@@ -3,13 +3,14 @@ from tkinter.ttk import *
 from actions_password import hash_password, password_verification
 import requests
 import json
+from Frames import *
 
 
-class Register:
+class Register(Frames):
 
     def __init__(self, window):
-        self.switch = None
-        self.frame = ttk.Frame(window, padx=1, pady=1)
+        super().__init__(window)
+        self.frame = ttk.Frame(window, padx=1, pady=170)
         self.items = [
             {'clmn': 0, 'rw': 4, 'cs': 2, 'rs': 1, "name": "error",    'object': Label(self.frame, text="")},
             {'clmn': 0, 'rw': 0, 'cs': 1, 'rs': 1, "name": "",         'object': Label(self.frame, text='логин')},
@@ -21,26 +22,9 @@ class Register:
             {'clmn': 1, 'rw': 3, 'cs': 1, 'rs': 1, "name": "",         'object':
                 Button(self.frame, text='Создать аккаунт', command=self.register)},
             {'clmn': 0, 'rw': 3, 'cs': 1, 'rs': 1, "name": "",         'object':
-                Button(self.frame, text='Вернуться к входу', command=self.switcher)},
+                Button(self.frame, text='Вернуться к входу', command=lambda: self.switcher('login'))},
         ]
-        self.add_items()
-
-    def add_items(self):
-        for i in self.items:
-            i["object"].grid(column=i["clmn"], row=i["rw"], columnspan=i['cs'], rowspan=i['rs'], padx=5, pady=5)
-
-    def get_element(self, name: str):
-        for i in self.items:
-            if i['name'] == name:
-                return i['object']
-        raise Exception('вызвана не сущ entry')
-
-    def switcher(self):
-        self.frame.pack_forget()
-        self.switch()
-
-    def add_switch(self, switch):
-        self.switch = switch
+        super().add_items()
 
     def register(self):
         login_entry = self.get_element("login")
@@ -63,9 +47,8 @@ class Register:
         }
         res = requests.post(f"http://194.146.240.26:2001/register", json=user)
         response = json.loads(res.text)
-        print(response)
         if response['error']:
             self.get_element('error').config(text=response["message"])
             print(response["message"])
         else:
-            self.get_element('error').config(text="Вы вошли!!!")
+            self.switcher("chat")
