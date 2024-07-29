@@ -13,6 +13,8 @@ class Chat(Frames):
         self.items = [
             {'clmn': 0, 'rw': 0, 'cs': 2, 'rs': 1, "name": "messanger", 'object': Label(self.frame, text='')},
             {'clmn': 0, 'rw': 0, 'cs': 2, 'rs': 1, "name": "error", 'object': Label(self.frame, text="")},
+            {'clmn': 1, 'rw': 2, 'cs': 1, 'rs': 1, "name": "", 'object':
+                Button(self.frame, text='обновить чат', command=self.update_chat)},
         ]
         self.add_items()
 
@@ -24,7 +26,7 @@ class Chat(Frames):
         self.get_element('messanger').config(text=result)
     def get_messages(self):
         file = open('session_key', 'r')
-        self.session_key = file.read()
+        self.session_key = file.read(40)
         file.close()
         req = {
             "session_key": self.session_key
